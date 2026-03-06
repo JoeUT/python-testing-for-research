@@ -22,7 +22,7 @@ on:
     paths:
       - '**.py'
       - 'pyproject.toml'
-      
+
   # This allows you to launch the job manually
   workflow_dispatch:
 
@@ -44,13 +44,13 @@ jobs:
         # Only run windows and macos on latest Python version
         exclude:
           - os: "windows-latest"
-            python_version: "3.12"
+            python-version: "3.12"
           - os: "windows-latest"
-            python_version: "3.13"
+            python-version: "3.13"
           - os: "macos-latest"
-            python_version: "3.12"
+            python-version: "3.12"
           - os: "macos-latest"
-            python_version: "3.13"
+            python-version: "3.13"
 
     # This is the environment that the job will run on. In this case, we are
     # using the latest version of Ubuntu, however you can use other operating

@@ -7,6 +7,25 @@ name: Tests (pytest)
 on:
   push:
 
+    # Only check when Python files are changed.
+    # Don't need to check when the README is updated!
+    paths:
+      - '**.py'
+      - 'pyproject.toml'
+    # Only check when somebody raises a push to main.
+    # (not recommended in general!)
+    branches: [main]
+  
+  # Run on code in pull requests.
+  pull_request:
+
+    paths:
+      - '**.py'
+      - 'pyproject.toml'
+      
+  # This allows you to launch the job manually
+  workflow_dispatch:
+
 # This is a list of jobs that the action will run. In this case, we have only
 # one job called test.
 jobs:
@@ -22,6 +41,16 @@ jobs:
       matrix:
         python-version: ["3.12", "3.13", "3.14"]
         os: [ubuntu-latest, windows-latest, macos-latest]
+        # Only run windows and macos on latest Python version
+        exclude:
+          - os: "windows-latest"
+            python_version: "3.12"
+          - os: "windows-latest"
+            python_version: "3.13"
+          - os: "macos-latest"
+            python_version: "3.12"
+          - os: "macos-latest"
+            python_version: "3.13"
 
     # This is the environment that the job will run on. In this case, we are
     # using the latest version of Ubuntu, however you can use other operating

@@ -1,4 +1,4 @@
 # file: message.py
 
 def message():
-    return "foo"
+    return "bar"

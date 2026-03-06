@@ -14,10 +14,19 @@ jobs:
   # This is the name of the job 
   test:
 
+    # This is a strategy that tells GitHub to run the job with different
+    # configurations. In this case, we are telling GitHub to run the tests with
+    # Python versions 3.12, 3.13, and 3.14 on different operating systems (Ubuntu,
+    # Windows, and MacOS).
+    strategy:
+      matrix:
+        python-version: ["3.12", "3.13", "3.14"]
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
     # This is the environment that the job will run on. In this case, we are
     # using the latest version of Ubuntu, however you can use other operating
     # systems like Windows or MacOS if you like!
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
 
     # This is a list of steps that the job will run. Each step is a command
     # that will be executed on the environment.
@@ -31,12 +40,12 @@ jobs:
 
       # This is the name of the step. This is just a label that will be
       # displayed in the GitHub UI.
-      - name: Set up Python 3.12
+      - name: Set up Python ${{ matrix.python-version }}
         # This command tells GitHub to use a pre-built action. In this case, we
         # are using the actions/setup-python action to set up Python 3.12.
         uses: actions/setup-python@v6
         with:
-            python-version: "3.12"
+            python-version: ${{ matrix.python-version }}
 
       # This step installs the dependencies for the project such as pytest,
       # numpy, pandas, etc using the requirements.txt file we created earlier.
